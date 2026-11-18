@@ -2,9 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Note extends Model
 {
-    protected $fillable = ['title', 'content'];
+    /** @use HasFactory<\Database\Factories\NoteFactory> */
+    use HasFactory;
+
+    protected $fillable = ['title', 'content', 'user_id'];
+
+    /**
+     * The user who owns this note.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
